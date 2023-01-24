@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     float timer;
 
 
+    // ƒƒCƒ“ƒ‹[ƒv
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
