@@ -60,8 +60,9 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy_Die");
             animator.Play("Enemy Die Animation");
-            //col.enabled = false;
-            Destroy(gameObject, 2f);
+            col.enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(50, 200));
+            Destroy(gameObject, 1f);
         }
     }
 }
