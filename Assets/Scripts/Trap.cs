@@ -8,6 +8,6 @@ public class Trap : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime);
+        this.transform.Rotate(0f, 0f, -5f, Space.World);
     }
 }
