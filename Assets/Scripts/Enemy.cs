@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] BoxCollider2D col;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
     [SerializeField] float moveSpeed;
     [SerializeField] public bool isLeft = false;    // true : 左向き
-
 
     //private bool isMoving = false;
     //private bool isDieing = false;
@@ -59,7 +59,9 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Throwing")
         {
             Debug.Log("Enemy_Die");
-            Destroy(gameObject, 0.2f);
+            animator.Play("Enemy Die Animation");
+            //col.enabled = false;
+            Destroy(gameObject, 2f);
         }
     }
 }

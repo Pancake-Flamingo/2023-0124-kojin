@@ -19,7 +19,7 @@ public class Throw : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 1.5f)
+        if (timer >= 2f)
         {
             gameObject.transform.tag = "Object";
             timer = 0;
