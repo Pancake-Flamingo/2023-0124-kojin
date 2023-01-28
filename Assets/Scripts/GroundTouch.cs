@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class GroundTouch : MonoBehaviour
 {
-    [SerializeField] Enemy enemy;
+
+    [SerializeField] public bool isGround = false;
+
+
+    // 地面に当たっているかだけを調べる
+
     void Start()
     {
-        
+        isGround = false;
     }
 
-    void Update()
-    {
-        
-    }
-    
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Stage"))
         {
-            Debug.Log(collision.gameObject.name);
-            enemy.num *= 1;
+            isGround = true;
         }
     }
 
@@ -28,8 +28,7 @@ public class GroundTouch : MonoBehaviour
     {
         if(collision.CompareTag("Stage"))
         {
-            Debug.Log("exit");
-            enemy.num *= -1;
+            isGround = false;
         }
     }
 }
