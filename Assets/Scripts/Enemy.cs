@@ -18,18 +18,15 @@ public class Enemy : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
 
         Vector3 scale = gameObject.transform.localScale;
-        pos = transform.position;
         transform.Translate(transform.right * Time.deltaTime * 1 * num);
 
-        if (pos.x > -0.5)
+        if( num == 1)
         {
-            num = -1;
-            //scale.x *= -1;
+            scale.x *= 1;
         }
-        if (pos.x < -2.5)
+        else
         {
-            num =  1;
-            //scale.x *= 1;
+            scale.x *= -1;
         }
     }
 
