@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D col;
-    [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
     [SerializeField] float moveSpeed;
     [SerializeField] public bool isLeft = false;    // true : 左向き
 
-    //private bool isMoving = false;
-    //private bool isDieing = false;
-    //private Vector2 pos;
-	//public int num = 1;
+    BoxCollider2D col;
+    Rigidbody2D rb;
     GroundTouch gt;
+
+    bool isDead = false;                            // 死亡フラグ
+
 
 
 	void Start()
 	{
+        col = GetComponent<BoxCollider2D>();
+        rb  = GetComponent<Rigidbody2D>();
+
+        isDead = false;
+
         // 地面チェックオブジェクト
         gt = gameObject.transform.GetChild(0).GetComponent<GroundTouch>();
 
@@ -32,6 +36,8 @@ public class Enemy : MonoBehaviour
 
 	void Update()
     {
+        if(isDead){ return;}                        // 死亡時にプルプルしないように以降の処理はしない
+
         Vector3 scale = gameObject.transform.localScale;
 
         // 地面チェックオブジェクトの状態を見る
@@ -58,10 +64,12 @@ public class Enemy : MonoBehaviour
 
         if (collision.gameObject.tag == "Throwing")
         {
+            isDead = true;                      // 死亡フラグ
+
             Debug.Log("Enemy_Die");
             animator.Play("Enemy Die Animation");
             col.enabled = false;
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(50, 200));
+            rb.AddForce(new Vector2(50, 200));
             Destroy(gameObject, 1f);
         }
     }

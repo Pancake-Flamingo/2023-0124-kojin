@@ -42,19 +42,19 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.localScale = scale;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !isFalling)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown ("joystick button 0")) && !isJumping && !isFalling)
         {
             Jump();
         }
 
         rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);
-        if (Input.GetKeyDown(KeyCode.W) && isObjectHit)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown ("joystick button 1")) && isObjectHit)
         {
             Object = HitObject;
             isObjectHit = false;
             Object.GetComponent<Rigidbody2D>().freezeRotation = true; 
         }
-        else if (Input.GetKeyDown(KeyCode.W) && Object != null)
+        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown ("joystick button 1")) && Object != null)
         {
             Object.GetComponent<Rigidbody2D>().freezeRotation = false;
             if (scale.x >= 0)
