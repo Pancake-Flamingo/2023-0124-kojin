@@ -3600,6 +3600,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9184342272740699646, guid: 0db236ca0ec60fb4f9d4f4df86e756d3, type: 3}
   m_PrefabInstance: {fileID: 2013621901}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &2024396350 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8764055022121308682, guid: 1deff75e39ab5c54fba35a01ceb06a84, type: 3}
+  m_PrefabInstance: {fileID: 8937896516446032170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2051174085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4632,6 +4637,14 @@ PrefabInstance:
       propertyPath: Object
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1196224238, guid: 1deff75e39ab5c54fba35a01ceb06a84, type: 3}
+      propertyPath: _cycle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196224238, guid: 1deff75e39ab5c54fba35a01ceb06a84, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 2024396350}
     - target: {fileID: 1196224238, guid: 1deff75e39ab5c54fba35a01ceb06a84, type: 3}
       propertyPath: animator
       value: 

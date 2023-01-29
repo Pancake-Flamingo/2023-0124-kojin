@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
-
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] GameObject Object;
+    [SerializeField] private Renderer _target;  //点滅対象
+    [SerializeField] private float _cycle = 1;  //点滅周期
 
     private bool isMoving = false;
     private bool isJumping = false;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isObjectHit { set; get; } = false;
     public GameObject HitObject;
 
-    float timer;
+    private float _time;
 
 
     // メインループ
@@ -98,6 +99,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")
         {
             Debug.Log("Die_Player");
+
+            _time += Time.deltaTime;
+            var repeatValue = Mathf.Repeat(_time, _cycle);      //cycleで繰り返す値取得
+            _target.enabled = repeatValue >= _cycle * 0.5f;
         }
     }
 }
