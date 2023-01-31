@@ -12,21 +12,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] GameObject Object;
-    [SerializeField] private Renderer _target;  //点滅対象
-    [SerializeField] private float _cycle = 1;  //点滅周期
 
     private bool isMoving = false;
     private bool isJumping = false;
     private bool isFalling = false;
+    private bool isDead = false;
+
     public bool isObjectHit { set; get; } = false;
     public GameObject HitObject;
 
-    private float _time;
-
+    [SerializeField] SpriteRenderer sp;
+    [SerializeField] float flash = 0.3f;
+    [SerializeField] int loop = 3;
 
     // メインループ
     void Update()
     {
+        if(isDead){ return;}
+
         float horizontal = Input.GetAxis("Horizontal");
 
         isMoving = horizontal != 0;
@@ -87,6 +90,18 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
+    IEnumerator Dead()
+    {
+        for (int i = 0; i < loop; i++)
+        {
+            yield return new WaitForSeconds(flash);
+            sp.enabled = false;
+            
+            yield return new WaitForSeconds(flash);
+            sp.enabled = true;
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Stage") || collision.CompareTag("Object"))
@@ -98,11 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")
         {
+            isDead = true;
             Debug.Log("Die_Player");
-
-            _time += Time.deltaTime;
-            var repeatValue = Mathf.Repeat(_time, _cycle);      //cycleで繰り返す値取得
-            _target.enabled = repeatValue >= _cycle * 0.5f;
+            StartCoroutine(Dead());
+            Destroy(gameObject, 2f);
         }
     }
 }

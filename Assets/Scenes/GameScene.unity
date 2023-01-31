@@ -4742,9 +4742,10 @@ MonoBehaviour:
   moveSpeed: 3
   jumpForce: 7
   Object: {fileID: 0}
-  _target: {fileID: 408108054533587744}
-  _cycle: 1
   HitObject: {fileID: 0}
+  sp: {fileID: 408108054533587744}
+  flash: 0.3
+  loop: 3
 --- !u!70 &8937896515318022085
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
