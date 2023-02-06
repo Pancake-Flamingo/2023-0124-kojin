@@ -19,14 +19,23 @@ public class FollowCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        if(playerObj == null){ return; }
         MoveCamera();
     }
 
     void MoveCamera()
     {
+        if(playerObj == null){ return; }
 
-        //横方向だけ追従
-        transform.position = new Vector3(playerTransform.position.x, transform.position.y, transform.position.z);
+        //Vector3 position = gameObject.transform.localPosition;
+        if(playerTransform.position.x < -1.2)
+        {
+            transform.position = new Vector3(-1.2f, transform.position.y, transform.position.z);
+        }
+        else
+        {
+            transform.position = new Vector3(playerTransform.position.x, transform.position.y, transform.position.z);
+        }
     }
 
 }
