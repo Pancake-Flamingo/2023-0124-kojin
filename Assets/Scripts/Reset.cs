@@ -14,7 +14,7 @@ public class Reset : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);      //ゲームを初期状態にリセット
         }
     }
 }

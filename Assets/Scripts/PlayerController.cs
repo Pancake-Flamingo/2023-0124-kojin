@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer sp;
     [SerializeField] float flash = 0.3f;
     [SerializeField] int loop = 3;
+    private int jumpCount = 0;
 
     // メインループ
     void Update()
@@ -40,18 +41,19 @@ public class PlayerController : MonoBehaviour
         {
             if (horizontal < 0 && scale.x > 0 || horizontal > 0 && scale.x < 0)
             {
-                scale.x *= -1;
+                scale.x *= -1;  //キャラの向き
             }
             gameObject.transform.localScale = scale;
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown ("joystick button 0")) && !isJumping && !isFalling)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown ("joystick button 0")) && !isJumping && this.jumpCount < 2)
         {
             Jump();
+            jumpCount++;
         }
 
         rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown ("joystick button 1")) && isObjectHit)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown ("joystick button 1")) && isObjectHit) //物持つ
         {
             Object = HitObject;
             isObjectHit = false;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown ("joystick button 1")) && Object != null)
         {
-            Object.GetComponent<Rigidbody2D>().freezeRotation = false;
+            Object.GetComponent<Rigidbody2D>().freezeRotation = false;  //物投げる
             if (scale.x >= 0)
             {
                 Object.GetComponent<Rigidbody2D>().AddForce(new Vector2(500, 200));
@@ -85,7 +87,10 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        if(jumpCount >= 2)
+        {
         isJumping = true;
+        }
 
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
@@ -107,6 +112,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Stage") || collision.CompareTag("Object"))
         {
             isJumping = false;
+            jumpCount = 0;
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
