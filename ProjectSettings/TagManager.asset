@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Throwing
   - Trap
+  - Fall
   layers:
   - Default
   - TransparentFX

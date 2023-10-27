@@ -114,8 +114,15 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             jumpCount = 0;
         }
+        if (collision.gameObject.tag == "Fall")     //落下死の処理
+        {
+            isDead = true;
+            Debug.Log("Die_Player");
+            StartCoroutine(Dead());
+            Destroy(gameObject, 1f);
+        }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)  //死亡時の処理
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")
         {
@@ -124,5 +131,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dead());
             Destroy(gameObject, 2f);
         }
+        
     }
 }
